@@ -91,5 +91,85 @@ Sockets are native to JS
 
 __Web sockets has two proccess' at any given time and they do not know about each other__
 
+Install NPM
+
+```bash
+npm init 
+````
+
+```bash
+npm install ws --save
+```
+
+## The WebSocket API
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+
+[MDN: Socket Objet](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+
+[WS NPM Module](https://www.npmjs.com/package/ws)
+
+Package.json
+
+```json
+{
+  "name": "nativews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "justWsServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^6.1.0"
+  }
+}
+```
+
+The Client
+
+```html
+<script>
+
+    let ws = new WebSocket('ws://localhost:8000');
+    console.log(ws);
+
+    ws.onopen = (event)=>{
+        ws.send('I am so excited I am connected! It is like Christmas!');
+    }
+
+    ws.onmessage = (event)=>{
+        console.log(event);
+    }
+
+</script>
+```
+
+The Server
+
+```javascript
+const http = require('http');
+// 3rd party module, ws!
+const websocket = require('ws');
+
+const server = http.createServer((req, res)=>{
+    res.end("I am connected!")
+});
+
+const wss = new websocket.Server({server})
+wss.on('headers',(headers,req)=>{
+    console.log(headers)
+});
+
+wss.on('connection', (ws,req)=>{
+    ws.send('Welcome to the websocket server!!')
+    ws.on('message',(msg)=>{
+        console.log(msg)
+    })
+})
 
 
+server.listen(8000);
+```
