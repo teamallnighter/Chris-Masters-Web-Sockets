@@ -173,3 +173,9 @@ wss.on('connection', (ws,req)=>{
 
 server.listen(8000);
 ```
+
+__note that we are using ws:// not http://__
+
+## [101 status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+
+> This code is sent in response to an Upgrade request header from the client, and indicates the protocol the server is switching to.
