@@ -11,7 +11,7 @@ const wss = new websocket.Server({server})
 wss.on('headers',(headers,req)=>{
     console.log(headers)
 });
-
+// the connection
 wss.on('connection', (ws,req)=>{
     ws.send('Welcome to the websocket server!!')
     ws.on('message',(msg)=>{
